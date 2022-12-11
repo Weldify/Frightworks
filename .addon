@@ -1,0 +1,32 @@
+{
+  "Title": "Frightworks",
+  "Type": "game",
+  "Org": "tgm",
+  "Ident": "frightworks",
+  "Tags": "",
+  "Schema": 1,
+  "HasAssets": true,
+  "AssetsPath": "",
+  "ResourcePaths": [],
+  "HasCode": true,
+  "CodePath": "/code/",
+  "Metadata": {
+    "MaxPlayers": 8,
+    "MinPlayers": 1,
+    "GameNetworkType": "Multiplayer",
+    "MapSelect": "Unrestricted",
+    "MapList": [
+      "facepunch.flatgrass"
+    ],
+    "RankType": "None",
+    "PerMapRanking": false,
+    "LeaderboardType": "None",
+    "ProjectTemplate": null,
+    "ControlModes": {
+      "Keyboard": true
+    },
+    "Summary": "",
+    "Description": "",
+    "Public": false
+  }
+}
