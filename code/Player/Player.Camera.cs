@@ -1,4 +1,6 @@
-﻿namespace Frightworks;
+﻿using Sandbox.Player.Camera;
+
+namespace Frightworks;
 
 public partial class Player
 {

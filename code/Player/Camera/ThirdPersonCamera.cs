@@ -1,6 +1,6 @@
 ﻿using Sandbox;
 
-namespace Frightworks;
+namespace Sandbox.Player.Camera;
 
 public partial class ThirdPersonCamera : CameraController
 {
