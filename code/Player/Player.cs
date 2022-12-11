@@ -7,6 +7,9 @@ namespace Frightworks;
 // Generic player class all Frightworks characters derive from
 public partial class Player : AnimatedEntity
 {
+	[Net]
+	public bool IsReady { get; set; } = false;
+
 	[ClientInput]
 	public Angles ViewAngles { get; set; }
 
@@ -77,6 +80,11 @@ public partial class Player : AnimatedEntity
 
 		DoMovement();
 		DoAnimation();
+
+		if ( Game.IsServer && Input.Pressed( InputButton.Slot0 ) )
+		{
+			IsReady = !IsReady;
+		}
 	}
 
 	public override void FrameSimulate( IClient cl )

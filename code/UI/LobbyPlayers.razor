@@ -1,0 +1,14 @@
+﻿@using Sandbox
+@using Sandbox.UI
+@using System.Linq;
+@using Frightworks
+@namespace Frightworks.UI
+@inherits Panel
+
+<root class="lobby-players">
+    @foreach (var plr in Entity.All.OfType<Frightworks.Player>())
+    {
+        var sign = plr.IsReady ? "☑" : "☒";
+        <label>@($"{plr.Client.Name} {sign}")</label>
+    }
+</root>

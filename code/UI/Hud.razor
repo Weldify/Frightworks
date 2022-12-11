@@ -1,0 +1,24 @@
+@using Sandbox.UI
+@namespace Frightworks.UI
+@inherits RootPanel
+@attribute [StyleSheet("/UI/style.scss")]
+
+<root class="hud">
+    @if (FrightworksGame.Current.IsLobby)
+    {
+        <LobbyHud/>
+    }
+    else
+    {
+        <GameHud/>
+    }
+</root>
+
+@code {
+
+    protected override void UpdateScale(Rect screenSize)
+    {
+        Scale = 1f;
+    }
+
+}
