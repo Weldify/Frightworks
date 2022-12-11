@@ -25,6 +25,7 @@ public partial class Player : AnimatedEntity
 
 		CameraController = new ThirdPersonCamera();
 		MoveController = new WalkController();
+		AnimationController = new HumanoidAnimator();
 
 		CreateHull();
 
@@ -75,6 +76,7 @@ public partial class Player : AnimatedEntity
 		}
 
 		DoMovement();
+		DoAnimation();
 	}
 
 	public override void FrameSimulate( IClient cl )
