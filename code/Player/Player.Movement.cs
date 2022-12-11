@@ -12,6 +12,6 @@ public partial class Player
 
 	void DoMovement()
 	{
-		MoveController?.Simulate();
+		MoveController?.Simulate( Client, this );
 	}
 }

@@ -10,21 +10,32 @@ public partial class Player : AnimatedEntity
 	[ClientInput]
 	public Angles ViewAngles { get; set; }
 
-	public override Ray AimRay => new( Position + Vector3.Up * 64f, ViewAngles.Forward );
-
 	public override void Spawn()
 	{
 		base.Spawn();
+
+		EnableLagCompensation = true;
 
 		EnableHideInFirstPerson = true;
 		EnableShadowInFirstPerson = true;
 
 		SetModel( "models/citizen/citizen.vmdl" );
 
+		// Once implemented, move the code below into Respawn
+
 		CameraController = new ThirdPersonCamera();
 		MoveController = new WalkController();
 
+		CreateHull();
+
 		MoveToSpawnpoint();
+	}
+
+	void CreateHull()
+	{
+		SetupPhysicsFromAABB( PhysicsMotionType.Keyframed, new Vector3( -16, -16, 0 ), new Vector3( 16, 16, 72 ) );
+
+		EnableHitboxes = true;
 	}
 
 	// Temporary until survivor spawn system is implemented
