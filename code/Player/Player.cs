@@ -44,6 +44,8 @@ public partial class Player : AnimatedEntity
 				ThirdPersonCamera or _ => new FirstPersonCamera()
 			};
 		}
+
+		DoMovement();
 	}
 
 	public override void FrameSimulate( IClient cl )

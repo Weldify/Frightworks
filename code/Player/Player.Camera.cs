@@ -1,4 +1,4 @@
-﻿using Sandbox.Player.Camera;
+﻿using Sandbox;
 
 namespace Frightworks;
 
