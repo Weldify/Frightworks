@@ -1,4 +1,6 @@
 ﻿using Sandbox;
+using System;
+using System.Linq;
 
 namespace Frightworks;
 
@@ -20,6 +22,23 @@ public partial class Player : AnimatedEntity
 		SetModel( "models/citizen/citizen.vmdl" );
 
 		CameraController = new ThirdPersonCamera();
+		MoveController = new WalkController();
+
+		MoveToSpawnpoint();
+	}
+
+	// Temporary until survivor spawn system is implemented
+	void MoveToSpawnpoint()
+	{
+		var spawnPoints = All.OfType<SpawnPoint>();
+		if ( !spawnPoints.Any() ) return;
+
+		var first = spawnPoints
+			.OrderBy( x => Guid.NewGuid() )
+			.First();
+
+		Transform = first.Transform;
+		ResetInterpolation();
 	}
 
 	public override void BuildInput()
@@ -35,7 +54,7 @@ public partial class Player : AnimatedEntity
 
 	public override void Simulate( IClient cl )
 	{
-		if ( Prediction.FirstTime && Input.Pressed(InputButton.View))
+		if ( Prediction.FirstTime && Input.Pressed( InputButton.View ) )
 		{
 			CameraController = CameraController switch
 			{
