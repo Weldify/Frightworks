@@ -16,7 +16,13 @@ public partial class FrightworksGame : GameManager
 
 	public override void Spawn()
 	{
-		Behavior = new LobbyBehavior();
+		var isLobbyMap = Game.Server.MapIdent == GameSettings.LobbyMapIdent;
+
+		Behavior = isLobbyMap switch
+		{
+			true => new LobbyBehavior(),
+			false => new MatchBehavior(),
+		};
 	}
 
 	public override void ClientJoined( IClient cl )
