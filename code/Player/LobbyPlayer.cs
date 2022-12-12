@@ -23,6 +23,7 @@ public partial class LobbyPlayer : BasePlayer
 
 		if ( Input.Pressed( InputButton.Slot1 ) )
 		{
+			Log.Info( "prsed" );
 			ReadyAs = ReadyAs switch
 			{
 				ReadyAs.Survivor => ReadyAs.None,

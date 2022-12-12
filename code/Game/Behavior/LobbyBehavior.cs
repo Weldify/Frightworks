@@ -34,6 +34,22 @@ public partial class LobbyBehavior : GameBehavior
 		return allPlayers.Count() == readyPlayers.Count();
 	}
 
+	// Make sure there is only one player ready as slasher
+	void ReduceSlashers()
+	{
+		var slashers = Entity.All.OfType<LobbyPlayer>()
+			.Where( p => p.ReadyAs == ReadyAs.Slasher );
+
+		var remaining = slashers
+			.OrderBy( p => Guid.NewGuid() )
+			.First();
+
+		foreach ( var slasher in slashers )
+			slasher.ReadyAs = ReadyAs.Survivor;
+
+		remaining.ReadyAs = ReadyAs.Slasher;
+	}
+
 	public override void Update()
 	{
 		if ( !CanStart() )
@@ -46,17 +62,14 @@ public partial class LobbyBehavior : GameBehavior
 
 		var transferInfo = new MatchTransferInfo();
 
-		var slashers = Entity.All.OfType<LobbyPlayer>()
-			.Where( p => p.ReadyAs == ReadyAs.Slasher );
+		ReduceSlashers();
 
-		if ( slashers.Any() )
+		var relevantPlayers = Entity.All.OfType<LobbyPlayer>()
+			.Where( p => p.ReadyAs != ReadyAs.None );
+
+		foreach ( var plr in relevantPlayers )
 		{
-			var slasher = slashers
-				.OrderBy( p => Guid.NewGuid() )
-				.First();
-
-			transferInfo.HasSlasher = true;
-			transferInfo.SlasherSteamId = slasher.Client.SteamId;
+			transferInfo.PlayerRoles.Add( plr.Client.SteamId, plr.ReadyAs );
 		}
 
 		FileSystem.Data.WriteJson( GameSettings.MatchTransferFilename, transferInfo );
