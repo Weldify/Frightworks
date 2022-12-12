@@ -2,7 +2,7 @@
 
 namespace Frightworks;
 
-public partial class CameraController : EntityComponent<Player>, ISingletonComponent
+public partial class CameraController : EntityComponent<BasePlayer>, ISingletonComponent
 {
 	/// <summary>
 	/// Runs in FrameSimulate to update the camera.

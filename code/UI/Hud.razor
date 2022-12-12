@@ -4,7 +4,7 @@
 @attribute [StyleSheet("/UI/style.scss")]
 
 <root class="hud">
-    @if (FrightworksGame.Current.IsLobby)
+    @if (FrightworksGame.Current.Behavior is LobbyBehavior)
     {
         <LobbyHud/>
     }

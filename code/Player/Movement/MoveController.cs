@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Frightworks;
 
-public partial class MoveController : EntityComponent<Player>, ISingletonComponent
+public partial class MoveController : EntityComponent<BasePlayer>, ISingletonComponent
 {
 	internal HashSet<string> Events;
 	internal HashSet<string> Tags;
@@ -19,7 +19,7 @@ public partial class MoveController : EntityComponent<Player>, ISingletonCompone
 
 	public float EyeHeightScale { get; set; }
 
-	public void UpdateFromEntity( Player plr )
+	public void UpdateFromEntity( BasePlayer plr )
 	{
 		Position = plr.Position;
 		Rotation = plr.Rotation;
@@ -45,7 +45,7 @@ public partial class MoveController : EntityComponent<Player>, ISingletonCompone
 		Tags = controller.Tags;
 	}
 
-	public void Finalize( Player target )
+	public void Finalize( BasePlayer target )
 	{
 		target.Position = Position;
 		target.Velocity = Velocity;
@@ -143,7 +143,7 @@ public partial class MoveController : EntityComponent<Player>, ISingletonCompone
 		Tags.Add( tagName );
 	}
 
-	public void Simulate( IClient client, Player plr )
+	public void Simulate( IClient client, BasePlayer plr )
 	{
 		Events?.Clear();
 		Tags?.Clear();
@@ -155,7 +155,7 @@ public partial class MoveController : EntityComponent<Player>, ISingletonCompone
 		Finalize( plr );
 	}
 
-	public void FrameSimulate( IClient client, Player plr )
+	public void FrameSimulate( IClient client, BasePlayer plr )
 	{
 		UpdateFromEntity( plr );
 

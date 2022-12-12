@@ -16,11 +16,16 @@ public partial class FrightworksGame : GameManager
 			_ = new UI.Hud();
 	}
 
+	public override void Spawn()
+	{
+		Behavior = new LobbyBehavior();
+	}
+
 	public override void ClientJoined( IClient cl )
 	{
 		base.ClientJoined( cl );
 
-		var plr = new Player();
+		var plr = new BasePlayer();
 		cl.Pawn = plr;
 	}
 

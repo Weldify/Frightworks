@@ -2,7 +2,7 @@
 
 namespace Frightworks;
 
-public partial class AnimationController : EntityComponent<Player>, ISingletonComponent
+public partial class AnimationController : EntityComponent<BasePlayer>, ISingletonComponent
 {
 	public virtual void Simulate() { }
 }

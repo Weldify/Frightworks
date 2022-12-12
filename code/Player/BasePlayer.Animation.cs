@@ -1,6 +1,6 @@
 ﻿namespace Frightworks;
 
-public partial class Player
+public partial class BasePlayer
 {
 	public AnimationController AnimationController
 	{

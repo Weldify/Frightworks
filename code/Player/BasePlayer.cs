@@ -5,7 +5,7 @@ using System.Linq;
 namespace Frightworks;
 
 // Generic player class all Frightworks characters derive from
-public partial class Player : AnimatedEntity
+public partial class BasePlayer : AnimatedEntity
 {
 	[Net]
 	public bool IsReady { get; set; } = false;
