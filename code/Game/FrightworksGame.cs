@@ -23,4 +23,10 @@ public partial class FrightworksGame : GameManager
 		var plr = new Player();
 		cl.Pawn = plr;
 	}
+
+	[Event.Tick.Server]
+	public void OnTickServer()
+	{
+		Behavior?.Update();
+	}
 }
