@@ -6,8 +6,6 @@ public partial class FrightworksGame : GameManager
 {
 	public new static FrightworksGame Current;
 
-	[Net] public bool IsLobby { get; set; } = true;
-
 	public FrightworksGame()
 	{
 		Current = this;
@@ -25,7 +23,7 @@ public partial class FrightworksGame : GameManager
 	{
 		base.ClientJoined( cl );
 
-		var plr = new BasePlayer();
+		var plr = Behavior.CreatePlayerForClient( cl );
 		cl.Pawn = plr;
 	}
 
