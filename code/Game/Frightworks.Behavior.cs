@@ -13,7 +13,7 @@ public partial class FrightworksGame
 		set
 		{
 			_behavior = value;
-			_behavior.Game = this;
+			_behavior.GameManager = this;
 			_behavior.Activate();
 		}
 	}
