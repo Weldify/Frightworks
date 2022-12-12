@@ -6,9 +6,15 @@
 @inherits Panel
 
 <root class="lobby-players">
-    @foreach (var plr in Entity.All.OfType<Frightworks.Player>())
+    @foreach (var plr in Entity.All.OfType<LobbyPlayer>())
     {
-        var sign = plr.IsReady ? "💀🔦" : "☒";
+        var sign = plr.ReadyAs switch
+        {
+            ReadyAs.None => "☒",
+            ReadyAs.Survivor => "🔦",
+            ReadyAs.Slasher => "💀",
+        }
+
         <label>@($"{plr.Client.Name} {sign}")</label>
     }
 </root>
