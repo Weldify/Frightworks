@@ -10,10 +10,10 @@
     {
         var sign = plr.ReadyAs switch
         {
-            ReadyAs.None => "☒",
             ReadyAs.Survivor => "🔦",
             ReadyAs.Slasher => "💀",
-        };
+            ReadyAs.None or _ => "☒",
+        }; 
 
         <label>@($"{plr.Client.Name} {sign}")</label>
     }
