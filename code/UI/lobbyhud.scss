@@ -6,7 +6,6 @@
     .lobby-players {
         position: absolute;
         height: 100%;
-
         flex-direction: column;
         justify-content: center;
         align-items: flex-start;
@@ -17,6 +16,21 @@
             color: white;
             background-color: black;
             font-size: 24px;
+        }
+    }
+
+    .lobby-countdown {
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        width: 100%;
+        bottom: 10%;
+
+        label {
+            color: red;
+            font-size: 32px;
+
+            text-shadow: 0px 0px 2px black;
         }
     }
 }

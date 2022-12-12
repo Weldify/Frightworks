@@ -1,0 +1,24 @@
+@using Sandbox.UI;
+@using Sandbox;
+@using System;
+@namespace Frightworks.UI
+@inherits Label
+
+@{
+	var behavior = FrightworksGame.Current.Behavior as LobbyBehavior;
+}
+
+<root class="lobby-countdown">
+	@if (behavior is not null)
+	{
+		<label>@behavior?.TimeUntilStart.Relative.ToString("0")</label>
+	}
+</root>
+
+@code {
+	protected override int BuildHash()
+	{
+		var behavior = (FrightworksGame.Current.Behavior as LobbyBehavior);
+		return HashCode.Combine(behavior?.TimeUntilStart.Relative);
+	}
+} 
