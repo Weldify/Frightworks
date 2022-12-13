@@ -70,15 +70,16 @@ public partial class LobbyBehavior : GameBehavior
 		var relevantPlayers = Entity.All.OfType<LobbyPlayer>()
 			.Where( p => p.ReadyAs != ReadyAs.None );
 
+		var botCount = 0;
 		foreach ( var plr in relevantPlayers )
 		{
 			// Bots can't get sent to the new map
 			// So we fake it by creating them on the other side
 			if ( plr.Client.IsBot )
 			{
-				transferInfo.BotCount++;
+				botCount++;
 				// Negative id lets us know its a bot
-				transferInfo.PlayerRoles.Add( -transferInfo.BotCount, plr.ReadyAs );
+				transferInfo.PlayerRoles.Add( -botCount, plr.ReadyAs );
 				continue;
 			}
 
