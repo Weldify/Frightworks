@@ -29,8 +29,7 @@ public partial class FrightworksGame : GameManager
 	{
 		base.ClientJoined( cl );
 
-		var plr = Behavior.CreatePlayerForClient( cl );
-		cl.Pawn = plr;
+		Behavior.ClientJoined( cl );
 	}
 
 	[Event.Tick.Server]

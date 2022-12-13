@@ -8,8 +8,5 @@ public partial class GameBehavior : BaseNetworkable
 
 	public virtual void Activate() { }
 	public virtual void Update() { }
-	public virtual BasePlayer CreatePlayerForClient( IClient cl ) 
-	{
-		return new BasePlayer();
-	}
+	public virtual void ClientJoined( IClient cl ) { }
 }

@@ -10,9 +10,12 @@ public partial class LobbyBehavior : GameBehavior
 	[Net]
 	public TimeUntil TimeUntilStart { get; set; } = GameSettings.LobbyCountdownTime;
 
-	public override BasePlayer CreatePlayerForClient( IClient cl )
+	public override void ClientJoined( IClient cl )
 	{
-		return new LobbyPlayer();
+		base.ClientJoined( cl );
+
+		var plr = new LobbyPlayer();
+		cl.Pawn = plr;
 	}
 
 	bool CanStart()
