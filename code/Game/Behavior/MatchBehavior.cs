@@ -26,7 +26,7 @@ public partial class MatchBehavior : GameBehavior
 		// Bots are steamids smaller than 0
 		var botPlayerRoles = new Dictionary<long, ReadyAs>( PlayerRoles.Where( p => p.Key < 0 ) );
 
-		foreach ( (var steamid, var readyAs) in botPlayerRoles )
+		foreach ( var (steamid, readyAs) in botPlayerRoles )
 		{
 			FrightworksBot bot = readyAs switch
 			{

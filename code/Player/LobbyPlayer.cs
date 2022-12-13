@@ -18,7 +18,6 @@ public partial class LobbyPlayer : BasePlayer
 	{
 		base.Simulate( cl );
 
-		// Role selection
 		if ( !Game.IsServer ) return;
 
 		if ( Input.Pressed( InputButton.Slot1 ) )
