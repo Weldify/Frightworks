@@ -1,4 +1,5 @@
 ﻿using Sandbox;
+using System;
 using System.Linq;
 
 namespace Frightworks;
@@ -28,8 +29,8 @@ public partial class MatchBehavior
 
 	void SpawnPlayers()
 	{
-		var survivorSpawns = Entity.All.OfType<SurvivorSpawn>();
-		var slasherSpawns = Entity.All.OfType<SlasherSpawn>();
+		var survivorSpawns = Entity.All.OfType<SurvivorSpawn>().ToList();
+		var slasherSpawns = Entity.All.OfType<SlasherSpawn>().ToList();
 
 		var survivorSpawnId = 0;
 		var slasherSpawnId = 0;
@@ -47,30 +48,72 @@ public partial class MatchBehavior
 
 			if ( plr is SurvivorPlayer surv )
 			{
-				var spawn = survivorSpawns.ElementAt( survivorSpawnId );
+				var spawn = survivorSpawns[survivorSpawnId];
 				surv.Transform = spawn.Transform;
 				surv.ResetInterpolation();
 
-				survivorSpawnId = (survivorSpawnId + 1) % survivorSpawns.Count();
+				survivorSpawnId = (survivorSpawnId + 1) % survivorSpawns.Count;
 			}
 
 			if ( plr is SlasherPlayer slasher )
 			{
-				var spawn = slasherSpawns.ElementAt( slasherSpawnId );
+				var spawn = slasherSpawns[slasherSpawnId];
 				slasher.Transform = spawn.Transform;
 				slasher.ResetInterpolation();
 
-				slasherSpawnId = (slasherSpawnId + 1) % slasherSpawns.Count();
+				slasherSpawnId = (slasherSpawnId + 1) % slasherSpawns.Count;
 			}
 		}
 	}
 
 	void SpawnObjectives()
 	{
-		// Generators
-		foreach ( var genSpawn in Entity.All.OfType<GeneratorSpawn>() )
-		{
+		// Generators and batteries
+		var generatorSpawns = Entity.All.OfType<GeneratorSpawn>()
+			.OrderBy( _ => Guid.NewGuid() )
+			.ToList();
 
+		int genCount = 0;
+		foreach ( var generatorSpawn in generatorSpawns )
+		{
+			if ( genCount == GameSettings.GeneratorCount ) break;
+
+			var batterySpawns = Entity.All.OfType<CarBatterySpawn>()
+				.Where( b => b.GeneratorId == generatorSpawn.GeneratorId )
+				.ToList();
+
+			Game.SetRandomSeed( Time.Tick + (genCount * 5) );
+			var batterySpawn = Game.Random.FromList( batterySpawns );
+
+			_ = new Generator
+			{
+				Transform = generatorSpawn.Transform,
+			};
+			_ = new CarBattery
+			{
+				Transform = batterySpawn.Transform,
+			};
+
+			genCount++;
+		}
+
+		// Gas cans
+		var gasCanSpawns = Entity.All.OfType<GasCanSpawn>()
+			.OrderBy( _ => Guid.NewGuid() )
+			.ToList();
+
+		int gasCanGoal = genCount * GameSettings.GasCansPerGenerator;
+		int gasCanCount = 0;
+		foreach ( var fuelCanSpawn in gasCanSpawns )
+		{
+			if ( gasCanCount == gasCanGoal ) break;
+
+			_ = new GasCan
+			{
+				Transform = gasCanSpawns[gasCanCount % gasCanSpawns.Count].Transform,
+			};
+
+			gasCanCount++;
 		}
 	}
 
