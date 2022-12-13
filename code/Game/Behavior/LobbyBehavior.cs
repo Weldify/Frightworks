@@ -41,16 +41,14 @@ public partial class LobbyBehavior : GameBehavior
 	void ReduceSlashers()
 	{
 		var slashers = Entity.All.OfType<LobbyPlayer>()
-			.Where( p => p.ReadyAs == ReadyAs.Slasher );
-
-		var remaining = slashers
-			.OrderBy( p => Guid.NewGuid() )
-			.First();
+			.Where( p => p.ReadyAs == ReadyAs.Slasher )
+			.OrderBy( _ => Guid.NewGuid() );
 
 		foreach ( var slasher in slashers )
 			slasher.ReadyAs = ReadyAs.Survivor;
 
-		remaining.ReadyAs = ReadyAs.Slasher;
+		if ( slashers.Any() )
+			slashers.First().ReadyAs = ReadyAs.Slasher;
 	}
 
 	public override void Update()
