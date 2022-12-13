@@ -5,7 +5,7 @@ namespace Frightworks;
 public partial class SlasherBot : FrightworksBot
 {
 	[ConCmd.Admin( "fw_bot_slasher", Help = "Spawn a slasher bot" )]
-	public void SpawnSurvivorBot()
+	public static void SpawnSurvivorBot()
 	{
 		Game.AssertServer();
 
