@@ -1,7 +1,9 @@
 ﻿using Sandbox;
+using Sandbox.Internal;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Frightworks;
 
@@ -16,9 +18,12 @@ public partial class MatchBehavior : GameBehavior
 		var transferInfo = FileSystem.Data.ReadJson<MatchTransferInfo>( GameSettings.MatchTransferFilename );
 
 		PlayerRoles = transferInfo.PlayerRoles;
+	}
 
+	void ReplaceBotRoles()
+	{
 		// Bots are steamids smaller than 0
-		var botPlayerRoles = PlayerRoles.Where( ( k, v ) => v < 0 );
+		var botPlayerRoles = PlayerRoles.Where( p => p.Key < 0 );
 
 		foreach ( (var steamid, var readyAs) in botPlayerRoles )
 		{
@@ -31,6 +36,17 @@ public partial class MatchBehavior : GameBehavior
 			// Inject the bot's steamid into the player roles
 			PlayerRoles.Remove( steamid );
 			PlayerRoles.Add( bot.Client.SteamId, readyAs );
+		}
+	}
+
+	bool firstUpdate = true;
+
+	public override void Update()
+	{
+		if ( firstUpdate )
+		{
+			firstUpdate = false;
+			ReplaceBotRoles();
 		}
 	}
 }
