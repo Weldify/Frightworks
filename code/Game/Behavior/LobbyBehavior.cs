@@ -72,6 +72,16 @@ public partial class LobbyBehavior : GameBehavior
 
 		foreach ( var plr in relevantPlayers )
 		{
+			// Bots can't get sent to the new map
+			// So we fake it by creating them on the other side
+			if ( plr.Client.IsBot )
+			{
+				transferInfo.BotCount++;
+				// Negative id lets us know its a bot
+				transferInfo.PlayerRoles.Add( -transferInfo.BotCount, plr.ReadyAs );
+				continue;
+			}
+
 			transferInfo.PlayerRoles.Add( plr.Client.SteamId, plr.ReadyAs );
 		}
 

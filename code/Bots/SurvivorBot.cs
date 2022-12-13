@@ -1,11 +1,12 @@
-﻿using Sandbox;
+﻿using Frightworks;
+using Sandbox;
 
 namespace Frightworks;
 
-public partial class SurvivorBot : Bot
+public partial class SurvivorBot : FrightworksBot
 {
 	[ConCmd.Admin( "fw_bot_survivor", Help = "Spawn a survivor bot" )]
-	public static void SpawnSurvivorBot()
+	public void SpawnSurvivorBot()
 	{
 		Game.AssertServer();
 
@@ -14,7 +15,7 @@ public partial class SurvivorBot : Bot
 
 	TimeSince timeSinceReady = 0f;
 
-	void BuildLobbyInput( LobbyPlayer plr )
+	public override void BuildLobbyInput( LobbyPlayer plr )
 	{
 		// Input.Pressed is spammed for some reason even if the key is just down
 		Input.SetButton( InputButton.Slot1, false );
@@ -23,17 +24,6 @@ public partial class SurvivorBot : Bot
 		{
 			timeSinceReady = 0f;
 			Input.SetButton( InputButton.Slot1, true );
-		}
-	}
-
-	public override void BuildInput()
-	{
-		var pawn = Client.Pawn;
-
-		if ( pawn is LobbyPlayer plr )
-		{
-			BuildLobbyInput( plr );
-			return;
 		}
 	}
 }
