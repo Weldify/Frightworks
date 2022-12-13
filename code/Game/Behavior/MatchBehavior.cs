@@ -9,6 +9,7 @@ namespace Frightworks;
 
 public partial class MatchBehavior : GameBehavior
 {
+
 	[Net]
 	public IDictionary<long, ReadyAs> PlayerRoles { get; set; }
 
@@ -48,5 +49,7 @@ public partial class MatchBehavior : GameBehavior
 			firstUpdate = false;
 			ReplaceBotRoles();
 		}
+
+		UpdateState();
 	}
 }

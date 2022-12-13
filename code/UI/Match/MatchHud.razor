@@ -1,0 +1,24 @@
+﻿@using Sandbox.UI
+@using System
+@namespace Frightworks.UI
+@inherits Panel
+@attribute [StyleSheet("/UI/Match/match.scss")]
+
+@{
+	var gameState = (FrightworksGame.Current.Behavior as MatchBehavior).State;
+}
+
+<root class="match-hud">
+	@if (gameState == MatchState.WaitingForPlayers)
+	{
+		<JoinedPlayers />
+	}
+</root>
+
+@code {
+	protected override int BuildHash()
+	{
+		var gameState = (FrightworksGame.Current.Behavior as MatchBehavior).State;
+		return HashCode.Combine(gameState);
+	}
+}

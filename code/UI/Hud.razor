@@ -1,7 +1,7 @@
 @using Sandbox.UI
 @namespace Frightworks.UI
 @inherits RootPanel
-@attribute [StyleSheet("/UI/style.scss")]
+@attribute [StyleSheet("/UI/hud.scss")]
 
 <root class="hud">
     @if (FrightworksGame.Current.Behavior is LobbyBehavior)
@@ -10,7 +10,7 @@
     }
     else
     {
-        <GameHud/>
+        <MatchHud/>
     }
 </root>
 
