@@ -23,7 +23,7 @@ public partial class MatchBehavior : GameBehavior
 	void ReplaceBotRoles()
 	{
 		// Bots are steamids smaller than 0
-		var botPlayerRoles = PlayerRoles.Where( p => p.Key < 0 );
+		var botPlayerRoles = new Dictionary<long, ReadyAs>( PlayerRoles.Where( p => p.Key < 0 ) );
 
 		foreach ( (var steamid, var readyAs) in botPlayerRoles )
 		{
