@@ -65,7 +65,7 @@ public partial class SurvivorPlayer
 		FlashlightEnabled = !FlashlightEnabled;
 
 		if ( worldLight.IsValid() )
-			viewLight.Enabled = FlashlightEnabled;
+			worldLight.Enabled = FlashlightEnabled;
 
 		if ( Game.IsClient )
 		{
