@@ -10,6 +10,23 @@ public partial class LobbyBehavior : GameBehavior
 	[Net]
 	public TimeUntil TimeUntilStart { get; set; } = GameSettings.LobbyCountdownTime;
 
+	[ConCmd.Admin( "fw_run_test_survivor" )]
+	public static void RunSurvivorTest()
+	{
+		var transferInfo = new MatchTransferInfo
+		{
+			PlayerRoles = new Dictionary<long, ReadyAs>
+			{
+				{ConsoleSystem.Caller.SteamId, ReadyAs.Survivor},
+				{-1, ReadyAs.Slasher},
+			}
+		};
+		
+		FileSystem.Data.WriteJson( GameSettings.MatchTransferFilename, transferInfo );
+
+		Game.ChangeLevel( "local.fw_test_map#local" );
+	}
+
 	public override void ClientJoined( IClient cl )
 	{
 		base.ClientJoined( cl );
