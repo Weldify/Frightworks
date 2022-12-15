@@ -8,6 +8,8 @@ public partial class SurvivorPlayer : BasePlayer
 	{
 		base.Spawn();
 
+		SetModel( "models/citizen/citizen.vmdl" );
+
 		InitFlashlight();
 	}
 
