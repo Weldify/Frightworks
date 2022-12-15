@@ -20,8 +20,6 @@ public partial class BasePlayer : AnimatedEntity
 		EnableHideInFirstPerson = true;
 		EnableShadowInFirstPerson = true;
 
-		SetModel( "models/citizen/citizen.vmdl" );
-
 		// Once implemented, move the code below into Respawn
 
 		CameraController = new ThirdPersonCamera();

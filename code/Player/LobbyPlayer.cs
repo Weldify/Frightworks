@@ -27,6 +27,13 @@ public partial class LobbyPlayer : BasePlayer
 		plr.ReadyAs = ReadyAs.Slasher;
 	}
 
+	public override void Spawn()
+	{
+		base.Spawn();
+
+		SetModel( "models/citizen/citizen.vmdl" );
+	}
+
 	public override void Simulate( IClient cl )
 	{
 		base.Simulate( cl );

@@ -10,6 +10,7 @@ public partial class TerrancePlayer : SlasherPlayer
 	{
 		base.Spawn();
 
+		SetModel( "models/citizen/citizen.vmdl" );
 		RenderColor = Color.Red;
 	}
 }
