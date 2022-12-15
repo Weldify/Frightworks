@@ -60,7 +60,8 @@ public partial class LobbyBehavior : GameBehavior
 	{
 		var slashers = Entity.All.OfType<LobbyPlayer>()
 			.Where( p => p.ReadyAs == ReadyAs.Slasher )
-			.OrderBy( _ => Guid.NewGuid() );
+			.OrderBy( _ => Guid.NewGuid() )
+			.ToList();
 
 		foreach ( var slasher in slashers )
 			slasher.ReadyAs = ReadyAs.Survivor;
@@ -79,9 +80,9 @@ public partial class LobbyBehavior : GameBehavior
 
 		if ( TimeUntilStart > 0f ) return;
 
-		var transferInfo = new MatchTransferInfo();
-
 		ReduceSlashers();
+
+		var transferInfo = new MatchTransferInfo();
 
 		var relevantPlayers = Entity.All.OfType<LobbyPlayer>()
 			.Where( p => p.ReadyAs != ReadyAs.None );
@@ -89,6 +90,9 @@ public partial class LobbyBehavior : GameBehavior
 		var botCount = 0;
 		foreach ( var plr in relevantPlayers )
 		{
+			if ( plr.ReadyAs == ReadyAs.Slasher )
+				transferInfo.SlasherType = plr.SlasherType;
+
 			// Bots can't get sent to the new map
 			// So we fake it by creating them on the other side
 			if ( plr.Client.IsBot )
@@ -100,9 +104,6 @@ public partial class LobbyBehavior : GameBehavior
 			}
 
 			transferInfo.PlayerRoles.Add( plr.Client.SteamId, plr.ReadyAs );
-
-			if ( plr.ReadyAs == ReadyAs.Slasher )
-				transferInfo.SlasherType = plr.SlasherType;
 		}
 
 		FileSystem.Data.WriteJson( GameSettings.MatchTransferFilename, transferInfo );

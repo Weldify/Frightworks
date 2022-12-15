@@ -59,7 +59,7 @@ public partial class LobbyPlayer : BasePlayer
 		{
 			var selectionUI = UI.LobbySlasherSelection.Current;
 			if ( selectionUI is null ) return;
-
+			 
 			selectionUI.Enabled = !selectionUI.Enabled;
 		}
 	}

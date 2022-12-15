@@ -12,5 +12,7 @@ public partial class TerrancePlayer : SlasherPlayer
 
 		SetModel( "models/citizen/citizen.vmdl" );
 		RenderColor = Color.Red;
+
+		AddAbility<SlasherBasicAttack>();
 	}
 }

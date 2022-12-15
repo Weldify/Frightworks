@@ -16,4 +16,11 @@ public partial class SlasherPlayer : BasePlayer
 {
 	public static string Title => "Slasher";
 	public static SlasherType SlasherType => SlasherType.None;
+
+	public override void Simulate( IClient cl )
+	{
+		base.Simulate( cl );
+
+		SimulateAbilities();
+	}
 }
