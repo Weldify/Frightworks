@@ -1,0 +1,52 @@
+@using Sandbox.UI;
+@using Frightworks;
+
+@namespace Frightworks.UI
+@inherits Panel
+
+<root class="slasher-selection-holder">
+    @if (Enabled)
+    {
+        <panel class="slasher-selection">
+            @foreach (var type in TypeLibrary.GetTypes<SlasherPlayer>())
+            {
+                if (!TypeLibrary.HasAttribute<SlasherInfoAttribute>(type.TargetType))
+                    continue;
+
+                var info = type.GetAttribute<SlasherInfoAttribute>();
+
+                <button @onclick=@(() => ReadyAsSlasher(info.SlasherType))>
+                    @info.Title
+                </button>
+            }
+        </panel>
+    }
+</root>
+
+@code {
+    public static LobbySlasherSelection Current;
+
+    bool enabled = false;
+    public bool Enabled
+    {
+        get => enabled;
+        set
+        {
+            if (enabled == value) return;
+
+            enabled = value;
+            StateHasChanged();
+        }
+    }
+
+    public LobbySlasherSelection()
+    {
+        Current = this;
+    }
+
+    void ReadyAsSlasher(SlasherType type)
+    {
+        Enabled = false;
+        LobbyPlayer.ReadyAsSlasher(type);
+    }
+}

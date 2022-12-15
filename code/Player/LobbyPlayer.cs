@@ -13,6 +13,19 @@ public partial class LobbyPlayer : BasePlayer
 {
 	[Net]
 	public ReadyAs ReadyAs { get; set; } = ReadyAs.None;
+	public SlasherType SlasherType;
+
+	[ConCmd.Server( "fw_ready_slasher" )]
+	public static void ReadyAsSlasher( SlasherType type )
+	{
+		var caller = ConsoleSystem.Caller;
+		if ( caller is null ) return;
+
+		if ( caller.Pawn is not LobbyPlayer plr ) return;
+
+		plr.SlasherType = type;
+		plr.ReadyAs = ReadyAs.Slasher;
+	}
 
 	public override void Simulate( IClient cl )
 	{
@@ -22,7 +35,6 @@ public partial class LobbyPlayer : BasePlayer
 
 		if ( Input.Pressed( InputButton.Slot1 ) )
 		{
-			Log.Info( "prsed" );
 			ReadyAs = ReadyAs switch
 			{
 				ReadyAs.Survivor => ReadyAs.None,
@@ -31,16 +43,17 @@ public partial class LobbyPlayer : BasePlayer
 
 			return;
 		}
+	}
 
-		if ( Input.Pressed( InputButton.Slot2 ) )
+	[Event.Tick.Client]
+	public void OnClientTick()
+	{
+		if ( Input.Pressed( InputButton.Slot2 ) && ReadyAs == ReadyAs.None )
 		{
-			ReadyAs = ReadyAs switch
-			{
-				ReadyAs.Slasher => ReadyAs.None,
-				_ => ReadyAs.Slasher,
-			};
+			var selectionUI = UI.LobbySlasherSelection.Current;
+			if ( selectionUI is null ) return;
 
-			return;
+			selectionUI.Enabled = !selectionUI.Enabled;
 		}
 	}
 }
