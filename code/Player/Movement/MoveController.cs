@@ -1,6 +1,3 @@
-using Sandbox;
-using System.Collections.Generic;
-
 namespace Frightworks;
 
 public partial class MoveController : EntityComponent<BasePlayer>, ISingletonComponent
