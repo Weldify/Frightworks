@@ -27,6 +27,27 @@ public partial class MatchBehavior
 		return true;
 	}
 
+	// Create slasher player from SlasherType (previously deserialized from trasfer info)
+	SlasherPlayer CreateSlasherPlayer()
+	{
+		var types = TypeLibrary.GetTypes<SlasherPlayer>()
+			.Select( t => t.TargetType )
+			.Where( t =>
+				TypeLibrary.HasAttribute<SlasherInfoAttribute>( t )
+				&& TypeLibrary.GetAttribute<SlasherInfoAttribute>( t ).SlasherType == SlasherType
+			);
+
+		if ( !types.Any() )
+		{
+			Log.Error( "TypeLibrary couldn't find slasher class" );
+			return null;
+		}
+
+		var slasherType = types.First();
+
+		return TypeLibrary.Create<SlasherPlayer>( slasherType );
+	}
+
 	void SpawnPlayers()
 	{
 		var survivorSpawns = Entity.All.OfType<SurvivorSpawn>().ToList();
@@ -41,7 +62,7 @@ public partial class MatchBehavior
 
 			BasePlayer plr = readyAs switch
 			{
-				ReadyAs.Slasher => new SlasherPlayer(),
+				ReadyAs.Slasher => CreateSlasherPlayer(),
 				ReadyAs.Survivor or _ => new SurvivorPlayer(),
 			};
 			client.Pawn = plr;

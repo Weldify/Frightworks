@@ -5,4 +5,5 @@ namespace Frightworks;
 public class MatchTransferInfo
 {
 	public Dictionary<long, ReadyAs> PlayerRoles { get; set; } = new();
+	public SlasherType SlasherType { get; set; }
 }

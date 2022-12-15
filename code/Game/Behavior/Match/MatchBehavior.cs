@@ -12,6 +12,7 @@ public partial class MatchBehavior : GameBehavior
 
 	[Net]
 	public IDictionary<long, ReadyAs> PlayerRoles { get; set; }
+	public SlasherType SlasherType { get; set; }
 
 	public override void Activate()
 	{
@@ -19,6 +20,7 @@ public partial class MatchBehavior : GameBehavior
 		var transferInfo = FileSystem.Data.ReadJson<MatchTransferInfo>( GameSettings.MatchTransferFilename );
 
 		PlayerRoles = transferInfo.PlayerRoles;
+		SlasherType = transferInfo.SlasherType;
 	}
 
 	void ReplaceBotRoles()

@@ -5,4 +5,11 @@ public partial class TerrancePlayer : SlasherPlayer
 {
 	public new static string Title => "Terrance";
 	public new static SlasherType SlasherType => SlasherType.Terrance;
+
+	public override void Spawn()
+	{
+		base.Spawn();
+
+		RenderColor = Color.Red;
+	}
 }

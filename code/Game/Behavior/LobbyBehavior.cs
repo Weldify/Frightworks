@@ -19,9 +19,10 @@ public partial class LobbyBehavior : GameBehavior
 			{
 				{ConsoleSystem.Caller.SteamId, ReadyAs.Survivor},
 				{-1, ReadyAs.Slasher},
-			}
+			},
+			SlasherType = SlasherType.Terrance,
 		};
-		
+
 		FileSystem.Data.WriteJson( GameSettings.MatchTransferFilename, transferInfo );
 
 		Game.ChangeLevel( "local.fw_test_map#local" );
@@ -99,6 +100,9 @@ public partial class LobbyBehavior : GameBehavior
 			}
 
 			transferInfo.PlayerRoles.Add( plr.Client.SteamId, plr.ReadyAs );
+
+			if ( plr.ReadyAs == ReadyAs.Slasher )
+				transferInfo.SlasherType = plr.SlasherType;
 		}
 
 		FileSystem.Data.WriteJson( GameSettings.MatchTransferFilename, transferInfo );
