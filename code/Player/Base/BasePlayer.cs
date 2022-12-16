@@ -22,6 +22,8 @@ public partial class BasePlayer : AnimatedEntity
 	{
 		base.Spawn();
 
+		Tags.Add( "player" );
+
 		EnableLagCompensation = true;
 
 		EnableHideInFirstPerson = true;
@@ -36,6 +38,10 @@ public partial class BasePlayer : AnimatedEntity
 	public virtual void Respawn()
 	{
 		EnableDrawing = true;
+		EnableAllCollisions = true;
+
+		LifeState = LifeState.Alive;
+		Health = 100f;
 	}
 
 	public override void BuildInput()
@@ -71,8 +77,9 @@ public partial class BasePlayer : AnimatedEntity
 
 	public override void OnKilled()
 	{
-		base.OnKilled();
-
 		EnableDrawing = false;
+		EnableAllCollisions = false;
+
+		LifeState = LifeState.Dead;
 	}
 }
