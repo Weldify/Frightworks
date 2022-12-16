@@ -2,7 +2,7 @@ namespace Frightworks;
 
 public partial class SlasherAbility : Entity
 {
-	SlasherPlayer Slasher => Owner as SlasherPlayer;
+	protected SlasherPlayer Slasher => Owner as SlasherPlayer;
 
 	// If we can use, use and return true, otherwise return false.
 	public bool Try()
