@@ -75,10 +75,20 @@ public partial class BasePlayer : AnimatedEntity
 		UpdateCamera();
 	}
 
+	DamageInfo lastDamage;
+	public override void TakeDamage( DamageInfo info )
+	{
+		lastDamage = info;
+		base.TakeDamage( info );
+	}
+
 	public override void OnKilled()
 	{
 		EnableDrawing = false;
 		EnableAllCollisions = false;
+
+		var rag = new Ragdoll();
+		rag.Init( this, lastDamage.Force );
 
 		LifeState = LifeState.Dead;
 	}
