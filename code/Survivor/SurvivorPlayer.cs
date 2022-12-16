@@ -32,6 +32,7 @@ public partial class SurvivorPlayer : BasePlayer
 		base.Simulate( cl );
 
 		SimulateFlashlight();
+		SimulateCarriable();
 	}
 
 	public override void FrameSimulate( IClient cl )
