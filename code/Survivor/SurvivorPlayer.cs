@@ -18,6 +18,15 @@ public partial class SurvivorPlayer : BasePlayer
 		InitFlashlightClient();
 	}
 
+	public override void Respawn()
+	{
+		base.Respawn();
+
+		AnimationController = new HumanoidAnimator();
+		MoveController = new WalkController();
+		CameraController = new FirstPersonCamera();
+	}
+
 	public override void Simulate( IClient cl )
 	{
 		base.Simulate( cl );

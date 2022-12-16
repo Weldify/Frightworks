@@ -34,6 +34,15 @@ public partial class LobbyPlayer : BasePlayer
 		SetModel( "models/citizen/citizen.vmdl" );
 	}
 
+	public override void Respawn()
+	{
+		base.Respawn();
+
+		AnimationController = new HumanoidAnimator();
+		MoveController = new WalkController();
+		CameraController = new FirstPersonCamera();
+	}
+
 	public override void Simulate( IClient cl )
 	{
 		base.Simulate( cl );

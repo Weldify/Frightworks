@@ -60,9 +60,12 @@ public partial class SurvivorPlayer
 	void SimulateFlashlight()
 	{
 		if ( !Prediction.FirstTime ) return;
-		if ( !Input.Pressed( InputButton.Flashlight ) ) return;
 
-		FlashlightEnabled = !FlashlightEnabled;
+		var dead = LifeState != LifeState.Alive;
+		if ( !dead && !Input.Pressed( InputButton.Flashlight ) ) return;
+
+		// If we are dead, turn off the flashlight
+		FlashlightEnabled = dead ? false : !FlashlightEnabled;
 
 		if ( worldLight.IsValid() )
 			worldLight.Enabled = FlashlightEnabled;

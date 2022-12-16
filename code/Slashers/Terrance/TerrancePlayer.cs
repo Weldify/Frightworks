@@ -15,4 +15,13 @@ public partial class TerrancePlayer : SlasherPlayer
 
 		AddAbility<SlasherBasicAttack>();
 	}
+
+	public override void Respawn()
+	{
+		base.Respawn();
+
+		AnimationController = new HumanoidAnimator();
+		MoveController = new WalkController();
+		CameraController = new FirstPersonCamera();
+	}
 }
