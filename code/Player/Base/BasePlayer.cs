@@ -66,6 +66,8 @@ public partial class BasePlayer : AnimatedEntity
 			};
 		}
 
+		DoUse();
+
 		DoMovement();
 		DoAnimation();
 	}
