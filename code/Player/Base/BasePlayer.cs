@@ -27,8 +27,6 @@ public partial class BasePlayer : AnimatedEntity
 		AnimationController = new HumanoidAnimator();
 
 		CreateHull();
-
-		MoveToSpawnpoint();
 	}
 
 	void CreateHull()
@@ -36,20 +34,6 @@ public partial class BasePlayer : AnimatedEntity
 		SetupPhysicsFromAABB( PhysicsMotionType.Keyframed, new Vector3( -16, -16, 0 ), new Vector3( 16, 16, 72 ) );
 
 		EnableHitboxes = true;
-	}
-
-	// Temporary until survivor spawn system is implemented
-	void MoveToSpawnpoint()
-	{
-		var spawnPoints = All.OfType<SpawnPoint>();
-		if ( !spawnPoints.Any() ) return;
-
-		var first = spawnPoints
-			.OrderBy( x => Guid.NewGuid() )
-			.First();
-
-		Transform = first.Transform;
-		ResetInterpolation();
 	}
 
 	public override void BuildInput()
