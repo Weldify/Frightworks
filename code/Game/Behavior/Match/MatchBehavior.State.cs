@@ -73,6 +73,8 @@ public partial class MatchBehavior
 				surv.Transform = spawn.Transform;
 				surv.ResetInterpolation();
 
+				surv.Respawn();
+
 				survivorSpawnId = (survivorSpawnId + 1) % survivorSpawns.Count;
 			}
 
@@ -81,6 +83,8 @@ public partial class MatchBehavior
 				var spawn = slasherSpawns[slasherSpawnId];
 				slasher.Transform = spawn.Transform;
 				slasher.ResetInterpolation();
+
+				slasher.Respawn();
 
 				slasherSpawnId = (slasherSpawnId + 1) % slasherSpawns.Count;
 			}

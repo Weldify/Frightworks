@@ -28,12 +28,27 @@ public partial class LobbyBehavior : GameBehavior
 		Game.ChangeLevel( "local.fw_test_map#local" );
 	}
 
+	void MoveToSpawnpoint(LobbyPlayer plr)
+	{
+		var spawnPoints = Entity.All.OfType<SpawnPoint>()
+			.OrderBy( x => Guid.NewGuid() );
+
+		if ( !spawnPoints.Any() ) return;
+
+		plr.Transform = spawnPoints.First().Transform;
+		plr.ResetInterpolation();
+	}
+
 	public override void ClientJoined( IClient cl )
 	{
 		base.ClientJoined( cl );
 
 		var plr = new LobbyPlayer();
 		cl.Pawn = plr;
+
+		MoveToSpawnpoint( plr );
+
+		plr.Respawn();
 	}
 
 	bool CanStart()

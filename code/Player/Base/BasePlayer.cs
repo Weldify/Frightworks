@@ -26,6 +26,7 @@ public partial class BasePlayer : AnimatedEntity
 
 		EnableHideInFirstPerson = true;
 		EnableShadowInFirstPerson = true;
+		EnableDrawing = false;
 
 		CreateHull();
 
