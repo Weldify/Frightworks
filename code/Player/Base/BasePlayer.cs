@@ -11,6 +11,13 @@ public partial class BasePlayer : AnimatedEntity
 	[ClientInput]
 	public Angles ViewAngles { get; set; }
 
+	void CreateHull()
+	{
+		SetupPhysicsFromAABB( PhysicsMotionType.Keyframed, new Vector3( -16, -16, 0 ), new Vector3( 16, 16, 72 ) );
+
+		EnableHitboxes = true;
+	}
+
 	public override void Spawn()
 	{
 		base.Spawn();
@@ -20,20 +27,14 @@ public partial class BasePlayer : AnimatedEntity
 		EnableHideInFirstPerson = true;
 		EnableShadowInFirstPerson = true;
 
-		// Once implemented, move the code below into Respawn
-
-		CameraController = new ThirdPersonCamera();
-		MoveController = new WalkController();
-		AnimationController = new HumanoidAnimator();
-
 		CreateHull();
+
+		LifeState = LifeState.Dead;
 	}
 
-	void CreateHull()
+	public virtual void Respawn()
 	{
-		SetupPhysicsFromAABB( PhysicsMotionType.Keyframed, new Vector3( -16, -16, 0 ), new Vector3( 16, 16, 72 ) );
-
-		EnableHitboxes = true;
+		EnableDrawing = true;
 	}
 
 	public override void BuildInput()
@@ -65,5 +66,12 @@ public partial class BasePlayer : AnimatedEntity
 	public override void FrameSimulate( IClient cl )
 	{
 		UpdateCamera();
+	}
+
+	public override void OnKilled()
+	{
+		base.OnKilled();
+
+		EnableDrawing = false;
 	}
 }
