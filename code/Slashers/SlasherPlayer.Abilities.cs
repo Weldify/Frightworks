@@ -11,6 +11,7 @@ public partial class SlasherPlayer
 		{
 			Owner = this
 		};
+		ability.SetParent( this );
 
 		Abilities.Add( ability );
 

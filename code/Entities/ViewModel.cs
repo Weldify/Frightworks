@@ -10,17 +10,16 @@ public class ViewModel : AnimatedEntity
 	{
 		base.Spawn();
 
-		Log.Info( "spawner" );
-
 		if ( currentViewModel.IsValid() )
 		{
 			currentViewModel.Delete();
-			Log.Info( "deleted" );
 		}
 
-		currentViewModel = this;
-
 		EnableViewmodelRendering = true;
+
+		Owner = Game.LocalPawn;
+		SetParent( Game.LocalPawn );
+		currentViewModel = this;
 	}
 
 	[Event.Client.Frame]
