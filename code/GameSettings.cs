@@ -2,7 +2,10 @@
 
 public static class GameSettings
 {
-	public static bool IsDebug => true;
+	// Do we want to run debug mode in the editor?
+	static bool DebugInEditor => true;
+	static bool DebugInGame => false;
+	public static bool IsDebug => Game.IsToolsMode ? DebugInEditor : DebugInGame;
 
 	public static float LobbyCountdownTime => IsDebug ? 2f : 10f;
 	public static string LobbyMapIdent => "facepunch.flatgrass";
