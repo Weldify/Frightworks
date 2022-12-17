@@ -24,6 +24,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="ui\DebugWarning.razor" />
 	  <None Remove="ui\match\MatchResults.razor" />
 	</ItemGroup>
 

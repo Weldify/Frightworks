@@ -4,6 +4,11 @@
 @attribute [StyleSheet("/UI/hud.scss")]
 
 <root class="hud">
+    @if(GameSettings.IsDebug)
+    {
+        <DebugWarning/>
+    }
+
     @if (FrightworksGame.Current.Behavior is LobbyBehavior)
     {
         <LobbyHud/>
