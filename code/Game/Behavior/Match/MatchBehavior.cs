@@ -1,6 +1,4 @@
-﻿using Sandbox;
-using Sandbox.Internal;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,9 +40,30 @@ public partial class MatchBehavior : GameBehavior
 		}
 	}
 
+	// Create slasher player from SlasherType (previously deserialized from transfer info)
+	SlasherPlayer CreateSlasherPlayer()
+	{
+		var types = TypeLibrary.GetTypes<SlasherPlayer>()
+			.Select( t => t.TargetType )
+			.Where( t =>
+				TypeLibrary.HasAttribute<SlasherInfoAttribute>( t )
+				&& TypeLibrary.GetAttribute<SlasherInfoAttribute>( t ).SlasherType == SlasherType
+			);
+
+		if ( !types.Any() )
+		{
+			Log.Error( "TypeLibrary couldn't find slasher class" );
+			return null;
+		}
+
+		var slasherType = types.First();
+
+		return TypeLibrary.Create<SlasherPlayer>( slasherType );
+	}
+
 	bool firstUpdate = true;
 
-	public override void Update()
+	public override void Tick()
 	{
 		if ( firstUpdate )
 		{
@@ -52,6 +71,6 @@ public partial class MatchBehavior : GameBehavior
 			ReplaceBotRoles();
 		}
 
-		UpdateState();
+		TickState();
 	}
 }

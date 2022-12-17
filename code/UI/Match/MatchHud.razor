@@ -1,5 +1,4 @@
 ﻿@using Sandbox.UI
-@using System
 @namespace Frightworks.UI
 @inherits Panel
 @attribute [StyleSheet("/UI/Match/match.scss")]
@@ -9,9 +8,17 @@
 }
 
 <root class="match-hud">
-	@if (gameState == MatchState.WaitingForPlayers)
+	@switch (gameState)
 	{
-		<JoinedPlayers />
+		case MatchState.WaitingForPlayers:
+			<JoinedPlayers />
+			break;
+		case MatchState.Ongoing:
+			//nothing yet
+			break;
+		case MatchState.Ended:
+			<MatchResults />
+			break;
 	}
 </root>
 

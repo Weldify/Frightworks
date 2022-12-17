@@ -10,24 +10,6 @@ public partial class LobbyBehavior : GameBehavior
 	[Net]
 	public TimeUntil TimeUntilStart { get; set; } = GameSettings.LobbyCountdownTime;
 
-	[ConCmd.Admin( "fw_run_test_survivor" )]
-	public static void RunSurvivorTest()
-	{
-		var transferInfo = new MatchTransferInfo
-		{
-			PlayerRoles = new Dictionary<long, ReadyAs>
-			{
-				{ConsoleSystem.Caller.SteamId, ReadyAs.Survivor},
-				{-1, ReadyAs.Slasher},
-			},
-			SlasherType = SlasherType.Terrance,
-		};
-
-		FileSystem.Data.WriteJson( GameSettings.MatchTransferFilename, transferInfo );
-
-		Game.ChangeLevel( "local.fw_test_map#local" );
-	}
-
 	void MoveToSpawnpoint(LobbyPlayer plr)
 	{
 		var spawnPoints = Entity.All.OfType<SpawnPoint>()
@@ -85,7 +67,7 @@ public partial class LobbyBehavior : GameBehavior
 			slashers.First().ReadyAs = ReadyAs.Slasher;
 	}
 
-	public override void Update()
+	public override void Tick()
 	{
 		if ( !CanStart() )
 		{

@@ -38,6 +38,6 @@ public partial class FrightworksGame : GameManager
 	[Event.Tick.Server]
 	public void OnTickServer()
 	{
-		Behavior?.Update();
+		Behavior?.Tick();
 	}
 }

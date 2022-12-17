@@ -26,7 +26,7 @@ public class ViewModel : AnimatedEntity
 	[Event.Client.Frame]
 	public void OnFrame()
 	{
-		Camera.Main.SetViewModelCamera( 70f );
+		Camera.Main.SetViewModelCamera( Camera.Main.FieldOfView );
 	}
 
 	[Event.Client.PostCamera]

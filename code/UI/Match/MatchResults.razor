@@ -1,0 +1,24 @@
+@using Sandbox.UI;
+@namespace Frightworks.UI
+@inherits Panel
+
+@{
+	var matchBehavior = FrightworksGame.Current.Behavior as MatchBehavior;
+	var endReason = matchBehavior.EndReason;
+}
+
+<root class="match-results">
+	@switch (endReason)
+	{
+		case EndReason.SurvivorsDead:
+			<label>
+				Nobody managed to escape.
+			</label>
+			break;
+		case EndReason.SurvivorsEscaped:
+			<label>
+				Survivors have escaped.
+			</label>
+			break;
+	}
+</root>
