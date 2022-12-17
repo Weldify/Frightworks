@@ -5,6 +5,8 @@ public partial class Carriable : ModelEntity, IUse
 	public SurvivorPlayer Survivor => Owner as SurvivorPlayer;
 
 	public virtual Model WorldModel => Model.Load( "models/dev/error.vmdl" );
+	public virtual Model ViewModel => Model.Load( "models/dev/error.vmdl" );
+	protected ViewModel ViewModelEntity;
 
 	public override void Spawn()
 	{
@@ -21,6 +23,15 @@ public partial class Carriable : ModelEntity, IUse
 		EnableShadowInFirstPerson = true;
 	}
 
+	[ClientRpc]
+	protected virtual void CreateViewModel() { }
+
+	[ClientRpc]
+	void RemoveViewModel() 
+	{
+		ViewModelEntity?.Delete();
+	}
+
 	public virtual bool CanCarry()
 	{
 		return Owner == null;
@@ -33,11 +44,16 @@ public partial class Carriable : ModelEntity, IUse
 		SetParent( carrier, true );
 		Owner = carrier;
 		EnableAllCollisions = false;
+
+		CreateViewModel( To.Single( Owner ) );
 	}
 
 	public virtual void CarryStop()
 	{
 		Game.AssertServer();
+
+		if ( Owner.IsValid() )
+			RemoveViewModel( To.Single( Owner ) );
 
 		SetParent( null );
 		Owner = null;
