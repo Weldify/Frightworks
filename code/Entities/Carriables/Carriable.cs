@@ -27,7 +27,7 @@ public partial class Carriable : ModelEntity, IUse
 	protected virtual void CreateViewModel() { }
 
 	[ClientRpc]
-	void RemoveViewModel() 
+	void RemoveViewModel()
 	{
 		ViewModelEntity?.Delete();
 	}
@@ -52,32 +52,38 @@ public partial class Carriable : ModelEntity, IUse
 	{
 		Game.AssertServer();
 
-		if ( Owner.IsValid() )
-			RemoveViewModel( To.Single( Owner ) );
+		var owner = Owner;
 
 		SetParent( null );
 		Owner = null;
 		EnableAllCollisions = true;
+
+		if ( !owner.IsValid() ) return;
+
+		Position = owner.AimRay.Position + owner.AimRay.Forward * 30f;
+		Rotation = Rotation.LookAt( owner.AimRay.Forward );
+		Velocity = owner.Velocity + owner.AimRay.Forward * 100f;
+		RemoveViewModel( To.Single( owner ) );
 	}
 
-	public virtual void SimulateAnimator( CitizenAnimationHelper anim )
+	public virtual bool IsUsable( Entity ent )
 	{
-	}
-
-	public bool IsUsable( Entity ent )
-	{
-		return CanCarry()
-			&& ent.IsValid()
+		return ent.IsValid()
 			&& ent is SurvivorPlayer survivor
 			&& survivor.LifeState == LifeState.Alive;
 	}
 
-	public bool OnUse( Entity ent )
+	public virtual bool OnUse( Entity ent )
 	{
 		if ( ent is not SurvivorPlayer survivor ) return false;
 
-		survivor.TryCarry( this );
+		if ( CanCarry() )
+		{
+			survivor.TryCarry( this );
+		}
 
 		return false;
 	}
+
+	public virtual void SimulateAnimator( CitizenAnimationHelper anim ) { }
 }

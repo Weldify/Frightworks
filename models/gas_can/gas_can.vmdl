@@ -89,6 +89,13 @@
 						angles = [ 0.0, -50.522102, 0.0 ]
 						do_not_discard = true
 					},
+					{
+						_class = "Bone"
+						name = "generator_gas_can"
+						origin = [ 8.753958, 2.459895, 11.132288 ]
+						angles = [ -70.680695, 0.0, 0.0 ]
+						do_not_discard = true
+					},
 				]
 			},
 		]

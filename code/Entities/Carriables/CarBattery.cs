@@ -7,6 +7,11 @@ public partial class CarBattery : Carriable
 	public override Model WorldModel => Model.Load( "models/car_battery/car_battery.vmdl" );
 	public override Model ViewModel => Model.Load( "models/car_battery/car_battery.vmdl" );
 
+	public override bool CanCarry()
+	{
+		return Parent is not Generator;
+	}
+
 	public override void SimulateAnimator( CitizenAnimationHelper anim )
 	{
 		anim.HoldType = CitizenAnimationHelper.HoldTypes.HoldItem;

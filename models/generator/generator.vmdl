@@ -88,6 +88,26 @@
 					},
 				]
 			},
+			{
+				_class = "Skeleton"
+				children = 
+				[
+					{
+						_class = "Bone"
+						name = "generator_battery"
+						origin = [ -42.585506, -26.003956, 64.62281 ]
+						angles = [ -0.0, 0.0, 49.864296 ]
+						do_not_discard = true
+					},
+					{
+						_class = "Bone"
+						name = "generator_gas_can"
+						origin = [ -55.571594, 11.975536, 52.728531 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						do_not_discard = true
+					},
+				]
+			},
 		]
 		model_archetype = ""
 		primary_associated_entity = ""
