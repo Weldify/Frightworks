@@ -34,6 +34,8 @@ public partial class Generator : ModelEntity
 		battery.EnableAllCollisions = false;
 
 		Battery = battery;
+
+		TryPower();
 	}
 
 	void TryConnectGasCan( Entity ent )
@@ -66,6 +68,8 @@ public partial class Generator : ModelEntity
 		GasCan.TryRemove();
 
 		GasCan = null;
+
+		TryPower();
 	}
 
 	// Try to siphon some fuel from the connected gas can
@@ -73,11 +77,13 @@ public partial class Generator : ModelEntity
 	public bool TryTickFuel()
 	{
 		if ( !GasCan.IsValid() ) return false;
-		if ( GasCan.FuelRemaining == 0f || FuelLevel == 1f  )
+		if ( GasCan.FuelRemaining == 0f || FuelLevel == 1f )
 		{
 			DetachGasCan();
 			return false;
 		}
+
+		GasCan.PourSoundEnabled = true;
 
 		// Make sure we don't siphon more than the generator can hold
 		var toSiphon = MathF.Min( FuelLevel + Time.Delta * 0.1f, 1f ) - FuelLevel;
@@ -85,18 +91,20 @@ public partial class Generator : ModelEntity
 		var siphoned = GasCan.Siphon( toSiphon );
 		FuelLevel += siphoned;
 
-		TryPower();
 		return true;
 	}
 
 	void TryPower()
 	{
-		Log.Info( FuelLevel );
-
-		if ( FuelLevel < 1f ) return;
+		if ( IsPowered ) return;
 		if ( !Battery.IsValid() ) return;
 
-		Log.Info( "Powered!" );
+		PlaySound( "generator.try_start" );
+
+		if ( FuelLevel < 1f ) return;
+		IsPowered = true;
+
+		PlaySound( "generator.running" );
 	}
 
 	public override void StartTouch( Entity other )

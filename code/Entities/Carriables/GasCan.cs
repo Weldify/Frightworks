@@ -2,12 +2,30 @@ using Sandbox;
 
 namespace Frightworks;
 
-public partial class GasCan : Carriable
-{
+public partial class GasCan : Carriable, IContinuousUse
+{ 
 	public override Model WorldModel => Model.Load( "models/gas_can/gas_can.vmdl" );
 	public override Model ViewModel => Model.Load( "models/gas_can/gas_can.vmdl" );
 
 	public float FuelRemaining = 0.4f;
+
+	// This is disgusting. I blame the sound api
+	Sound pourSound;
+	bool pourSoundEnabled;
+	public bool PourSoundEnabled
+	{
+		get => pourSoundEnabled;
+		set
+		{
+			if ( pourSoundEnabled == value ) return;
+			pourSoundEnabled = value;
+
+			if ( pourSoundEnabled )
+				pourSound = PlaySound( "gas_can.pour" );
+			else
+				pourSound.Stop();
+		}
+	}
 
 	// Try to siphon this much fuel. Returns how much we actually siphoned
 	public float Siphon( float amount )
@@ -49,6 +67,11 @@ public partial class GasCan : Carriable
 		}
 
 		return false;
+	}
+	
+	public void OnUseStop()
+	{
+		PourSoundEnabled = false;
 	}
 
 	public override void SimulateAnimator( CitizenAnimationHelper anim )

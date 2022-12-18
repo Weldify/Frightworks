@@ -57,6 +57,11 @@ public partial class BasePlayer
 
 	protected virtual void StopUsing()
 	{
+		if (Using.IsValid() && Using is IContinuousUse use)
+		{
+			use.OnUseStop();
+		}
+
 		Using = null;
 	}
 

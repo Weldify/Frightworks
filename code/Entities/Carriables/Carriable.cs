@@ -1,5 +1,10 @@
 ﻿namespace Frightworks;
 
+public interface IContinuousUse
+{
+	void OnUseStop();
+}
+
 public partial class Carriable : ModelEntity, IUse
 {
 	public SurvivorPlayer Survivor => Owner as SurvivorPlayer;
