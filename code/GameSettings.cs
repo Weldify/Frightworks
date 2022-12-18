@@ -7,16 +7,27 @@ public static class GameSettings
 	static bool DebugInGame => false;
 	public static bool IsDebug => Game.IsToolsMode ? DebugInEditor : DebugInGame;
 
+	// How long it takes for the game to start once everyone is ready
 	public static float LobbyCountdownTime => IsDebug ? 2f : 10f;
-	public static string LobbyMapIdent => "facepunch.flatgrass";
+
+	public static string LobbyMapIdent => IsDebug ? "tgm.fw_lobby#local" : "tgm.fw_lobby";
 	public static string MatchTransferFilename => "match_transfer_data.json";
 
 	// How long do we wait before starting the match once everyone is in
 	public static float MatchPreWaitTime => IsDebug ? 3f : 10f;
 
+	// How many generators to spawn on the map
 	public static int GeneratorCount => 3;
+
+	// How many generators need to be powered for the helicopter to arrive
 	public static int PoweredGeneratorsNeeded => 2;
+
+	// How many gas cans should spawn per every generator on the map
 	public static int GasCansPerGenerator => 5;
 
+	// How fast the fuel is transferred from a gas can into a generator
+	public static float GasCanPourSpeed => 0.05f;
+
+	// How fast the helicopter arrives after enough generators have started
 	public static float HelicopterArriveTime => IsDebug ? 5f : 30f;
 }

@@ -56,6 +56,6 @@ public partial class MatchBehavior
 
 		var inHeli = alive.Where( p => p.IsInHelicopter );
 
-		return alive.Count() == inHeli.Count();
+		return alive.Any() && alive.Count() == inHeli.Count();
 	}
 }

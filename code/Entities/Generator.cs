@@ -86,7 +86,7 @@ public partial class Generator : ModelEntity
 		GasCan.PourSoundEnabled = true;
 
 		// Make sure we don't siphon more than the generator can hold
-		var toSiphon = MathF.Min( FuelLevel + Time.Delta * 0.1f, 1f ) - FuelLevel;
+		var toSiphon = MathF.Min( FuelLevel + Time.Delta * GameSettings.GasCanPourSpeed, 1f ) - FuelLevel;
 
 		var siphoned = GasCan.Siphon( toSiphon );
 		FuelLevel += siphoned;

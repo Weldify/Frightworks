@@ -5,7 +5,7 @@ namespace Frightworks;
 public partial class SurvivorPlayer
 {
 	[Net, Predicted, Local]
-	bool FlashlightEnabled { get; set; } = false;
+	bool FlashlightEnabled { get; set; }
 
 	SpotLightEntity worldLight;
 	SpotLightEntity viewLight;
@@ -65,7 +65,10 @@ public partial class SurvivorPlayer
 		if ( !dead && !Input.Pressed( InputButton.Flashlight ) ) return;
 
 		// If we are dead, turn off the flashlight
-		FlashlightEnabled = dead ? false : !FlashlightEnabled;
+		var newFlashlightEnabled = dead ? false : !FlashlightEnabled;
+
+		if ( newFlashlightEnabled == FlashlightEnabled ) return;
+		FlashlightEnabled = newFlashlightEnabled;
 
 		if ( FlashlightEnabled )
 			PlaySound( "flashlight.switch_on" );
