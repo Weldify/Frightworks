@@ -10,7 +10,7 @@ public partial class LobbyBehavior : GameBehavior
 	[Net]
 	public TimeUntil TimeUntilStart { get; set; } = GameSettings.LobbyCountdownTime;
 
-	void MoveToSpawnpoint(LobbyPlayer plr)
+	void MoveToSpawnpoint( LobbyPlayer plr )
 	{
 		var spawnPoints = Entity.All.OfType<SpawnPoint>()
 			.OrderBy( x => Guid.NewGuid() );
@@ -105,6 +105,11 @@ public partial class LobbyBehavior : GameBehavior
 
 		FileSystem.Data.WriteJson( GameSettings.MatchTransferFilename, transferInfo );
 
-		Game.ChangeLevel( "local.fw_test_map#local" );
+		var mapIdent = GameSettings.MatchMapIdents
+			.Split( ";" )
+			.OrderBy( _ => Guid.NewGuid() )
+			.First();
+
+		Game.ChangeLevel( mapIdent );
 	}
 }

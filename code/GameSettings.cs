@@ -2,6 +2,12 @@
 
 public static class GameSettings
 {
+	public static string LobbyMapIdent => IsDebug ? "tgm.fw_lobby#local" : "tgm.fw_lobby";
+
+	[ConVar.Server( "fw_map_idents" )]
+	static string userMatchMapIdents { get; set; }
+	public static string MatchMapIdents => IsDebug ? "local.fw_test_map#local" : userMatchMapIdents;
+
 	// Do we want to run debug mode in the editor?
 	static bool DebugInEditor => true;
 	static bool DebugInGame => false;
@@ -10,7 +16,6 @@ public static class GameSettings
 	// How long it takes for the game to start once everyone is ready
 	public static float LobbyCountdownTime => IsDebug ? 2f : 10f;
 
-	public static string LobbyMapIdent => IsDebug ? "tgm.fw_lobby#local" : "tgm.fw_lobby";
 	public static string MatchTransferFilename => "match_transfer_data.json";
 
 	// How long do we wait before starting the match once everyone is in
@@ -26,7 +31,7 @@ public static class GameSettings
 	public static int GasCansPerGenerator => 5;
 
 	// How fast the fuel is transferred from a gas can into a generator
-	public static float GasCanPourSpeed => 0.05f;
+	public static float GasCanPourSpeed => IsDebug ? 0.2f : 0.03f;
 
 	// How fast the helicopter arrives after enough generators have started
 	public static float HelicopterArriveTime => IsDebug ? 5f : 30f;
