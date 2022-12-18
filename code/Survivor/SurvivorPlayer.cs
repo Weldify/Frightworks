@@ -4,6 +4,8 @@ namespace Frightworks;
 
 public partial class SurvivorPlayer : BasePlayer
 {
+	public bool IsInHelicopter = false;
+
 	public override void Spawn()
 	{
 		base.Spawn();
@@ -40,5 +42,18 @@ public partial class SurvivorPlayer : BasePlayer
 		base.FrameSimulate( cl );
 
 		FrameSimulateFlashlight();
+	}
+
+	public void TrySitInHelicopter( Helicopter heli )
+	{
+		if ( IsInHelicopter ) return;
+		if ( LifeState != LifeState.Alive ) return;
+		IsInHelicopter = true;
+
+		SetParent( heli );
+		EnableAllCollisions = false;
+
+		MoveController = null;
+		Transform = heli.Transform;
 	}
 }

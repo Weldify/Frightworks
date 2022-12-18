@@ -38,9 +38,11 @@ public partial class MatchBehavior
 						continue;
 					}
 
+					TickOngoingState();
+
 					break;
 				case MatchState.Ended:
-					TickEnded();
+					TickEndedState();
 					break;
 			}
 

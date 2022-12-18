@@ -15,7 +15,8 @@ public partial class MatchBehavior
 
 	bool CanBecomeEnded()
 	{
-		return AreAllSurvivorsDead();
+		return AreAllSurvivorsDead()
+			|| HaveAllSurvivorsEscaped();
 	}
 
 	void BecomeEnded()
@@ -25,10 +26,13 @@ public partial class MatchBehavior
 		if ( AreAllSurvivorsDead() )
 			EndReason = EndReason.SurvivorsDead;
 
+		if ( HaveAllSurvivorsEscaped() )
+			EndReason = EndReason.SurvivorsEscaped;
+
 		timeSinceEnded = 0f;
 	}
 
-	void TickEnded()
+	void TickEndedState()
 	{
 		if ( timeSinceEnded < 10f ) return;
 
@@ -42,5 +46,16 @@ public partial class MatchBehavior
 			.Where( p => p.IsValid() && p.LifeState == LifeState.Alive );
 
 		return !alive.Any();
+	}
+
+	// Survivor win condition
+	bool HaveAllSurvivorsEscaped()
+	{
+		var alive = Entity.All.OfType<SurvivorPlayer>()
+			.Where( p => p.IsValid() && p.LifeState == LifeState.Alive );
+
+		var inHeli = alive.Where( p => p.IsInHelicopter );
+
+		return alive.Count() == inHeli.Count();
 	}
 }

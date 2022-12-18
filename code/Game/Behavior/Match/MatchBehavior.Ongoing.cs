@@ -1,8 +1,16 @@
-﻿namespace Frightworks;
+﻿using Sandbox.Internal;
+
+namespace Frightworks;
 
 // Handles the ongoing state
 public partial class MatchBehavior
 {
+	bool startedSpawningHelicopter = false;
+	bool helicopterSpawned = false;
+	TimeUntil untilHelicopterSpawns;
+
+	bool areAllGeneratorsPowered = false;
+
 	bool CanBecomeOngoing()
 	{
 		foreach ( (var steamId, var _) in PlayerRoles )
@@ -20,6 +28,32 @@ public partial class MatchBehavior
 
 		SpawnPlayers();
 		SpawnObjectives();
+	}
+
+	void TickOngoingState()
+	{
+		if ( !areAllGeneratorsPowered )
+		{
+			var powered = Entity.All.OfType<Generator>()
+				.Where( g => g.IsPowered );
+
+			areAllGeneratorsPowered = powered.Count() >= GameSettings.PoweredGeneratorsNeeded;
+			if ( !areAllGeneratorsPowered ) return;
+		}
+
+		if ( !startedSpawningHelicopter )
+		{
+			startedSpawningHelicopter = true;
+			untilHelicopterSpawns = GameSettings.HelicopterArriveTime;
+			return;
+		}
+
+		if ( untilHelicopterSpawns > 0f ) return;
+
+		if ( helicopterSpawned ) return;
+		helicopterSpawned = true;
+
+		SpawnHelicopter();
 	}
 
 	void SpawnPlayers()
@@ -114,5 +148,16 @@ public partial class MatchBehavior
 
 			gasCanCount++;
 		}
+	}
+
+	void SpawnHelicopter()
+	{
+		var helicopterSpawn = Entity.All.OfType<HelicopterSpawn>()
+			.OrderBy( _ => Guid.NewGuid() )
+			.First();
+
+		var heli = new Helicopter();
+
+		heli.Transform = helicopterSpawn.Transform;
 	}
 }

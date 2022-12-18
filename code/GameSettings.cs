@@ -16,5 +16,7 @@ public static class GameSettings
 
 	public static int GeneratorCount => 3;
 	public static int PoweredGeneratorsNeeded => 2;
-	public static int GasCansPerGenerator => 4;
+	public static int GasCansPerGenerator => 5;
+
+	public static float HelicopterArriveTime => IsDebug ? 5f : 30f;
 }
