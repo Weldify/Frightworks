@@ -67,6 +67,11 @@ public partial class SurvivorPlayer
 		// If we are dead, turn off the flashlight
 		FlashlightEnabled = dead ? false : !FlashlightEnabled;
 
+		if ( FlashlightEnabled )
+			PlaySound( "flashlight.switch_on" );
+		else
+			PlaySound( "flashlight.switch_off" );
+
 		if ( worldLight.IsValid() )
 			worldLight.Enabled = FlashlightEnabled;
 

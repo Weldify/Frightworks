@@ -9,7 +9,7 @@
 		SelectionMode = "Random"
 		Sounds = 
 		[
-			resource:"sounds/generator.try_start.vsnd",
+			resource:"sounds/generator/generator.try_start.vsnd",
 		]
 		MaximumDistance = 1308.4543
 		MinimumDistance = 65.42272

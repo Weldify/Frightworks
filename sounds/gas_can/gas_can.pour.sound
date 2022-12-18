@@ -9,7 +9,7 @@
 		SelectionMode = "Random"
 		Sounds = 
 		[
-			resource:"sounds/gas_can.pour.vsnd",
+			resource:"sounds/gas_can/gas_can.pour.vsnd",
 		]
 		MaximumDistance = 1143.9335
 		MinimumDistance = 57.196674
