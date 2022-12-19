@@ -17,7 +17,7 @@ public partial class LobbyBehavior
 
 		FileSystem.Data.WriteJson( GameSettings.MatchTransferFilename, transferInfo );
 
-		Game.ChangeLevel( "local.fw_test_map#local" );
+		Game.ChangeLevel( GetRandomMatchMapIdent() );
 	}
 
 	[ConCmd.Admin( "fw_test_slasher" )]
@@ -35,6 +35,6 @@ public partial class LobbyBehavior
 
 		FileSystem.Data.WriteJson( GameSettings.MatchTransferFilename, transferInfo );
 
-		Game.ChangeLevel( "local.fw_test_map#local" );
+		Game.ChangeLevel( GetRandomMatchMapIdent() );
 	}
 }
