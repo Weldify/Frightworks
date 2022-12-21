@@ -30,7 +30,7 @@
     },
     "Summary": "",
     "Description": "",
-    "Public": false,
+    "Public": true,
     "Collision": {
       "Defaults": {
         "solid": "Collide",
