@@ -2,10 +2,10 @@
 
 public static class GameSettings
 {
-	public static string LobbyMapIdent => IsDebug ? "tgm.fw_lobby#local" : "tgm.fw_lobby";
+	public static string LobbyMapIdent => "tgm.fw_lobby";
 	[ConVar.Server( "fw_map_idents" )]
 	static string userMatchMapIdents { get; set; }
-	public static string MatchMapIdents => IsDebug ? "tgm.fw_asylum#local" : userMatchMapIdents;
+	public static string MatchMapIdents => userMatchMapIdents;
 
 	// Do we want to run debug mode in the editor?
 	[ConVar.Replicated( "fw_debug" )]
