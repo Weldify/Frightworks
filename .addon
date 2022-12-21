@@ -81,7 +81,7 @@
         "Choices": [],
         "ConVarName": "fw_map_idents",
         "DisplayName": "Maps",
-        "DefaultValue": "tgm.fw_asylum",
+        "DefaultValue": "tgm.fw_test_map",
         "Description": "The idents of maps you want to play on, separated by ;",
         "Group": ""
       },

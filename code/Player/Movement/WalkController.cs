@@ -28,6 +28,8 @@ public partial class WalkController : MoveController
 	public bool Swimming { get; set; } = false;
 	[Net] public bool AutoJump { get; set; } = false;
 
+	public bool Sprinting = false;
+
 	public Duck Duck;
 	public Unstuck Unstuck;
 
@@ -86,6 +88,7 @@ public partial class WalkController : MoveController
 	public override void Simulate()
 	{
 		EyeHeightScale = 1f;
+		Sprinting = false;
 
 		UpdateBBox();
 
@@ -172,7 +175,12 @@ public partial class WalkController : MoveController
 		var ws = Duck.GetWishSpeed();
 		if ( ws >= 0 ) return ws;
 
-		if ( Input.Down( InputButton.Run ) ) return SprintSpeed;
+		if ( Input.Down( InputButton.Run ) )
+		{
+			Sprinting = true;
+			return SprintSpeed;
+		}
+
 		if ( Input.Down( InputButton.Walk ) ) return WalkSpeed;
 
 		return DefaultSpeed;

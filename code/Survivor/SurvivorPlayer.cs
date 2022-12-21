@@ -67,4 +67,10 @@ public partial class SurvivorPlayer : BasePlayer
 		MoveController = null;
 		Transform = heli.Transform;
 	}
+
+	public override float FootstepVolume()
+	{
+		if ( MoveController is not WalkController wc ) return 0f;
+		return wc.Sprinting ? 1.5f : 0f;
+	}
 }
