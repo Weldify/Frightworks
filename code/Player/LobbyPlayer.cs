@@ -39,8 +39,13 @@ public partial class LobbyPlayer : BasePlayer
 		base.Respawn();
 
 		AnimationController = new HumanoidAnimator();
-		MoveController = new WalkController();
 		CameraController = new FirstPersonCamera();
+		MoveController = new WalkController()
+		{
+			DefaultSpeed = GameSettings.SurvivorWalkSpeed,
+			WalkSpeed = GameSettings.SurvivorWalkSpeed,
+			SprintSpeed = GameSettings.SurvivorSprintSpeed,
+		};
 	}
 
 	public override void Simulate( IClient cl )

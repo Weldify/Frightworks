@@ -25,8 +25,19 @@ public partial class SurvivorPlayer : BasePlayer
 		base.Respawn();
 
 		AnimationController = new HumanoidAnimator();
-		MoveController = new WalkController();
 		CameraController = new FirstPersonCamera();
+		MoveController = new WalkController
+		{
+			DefaultSpeed = GameSettings.SurvivorWalkSpeed,
+			WalkSpeed = GameSettings.SurvivorWalkSpeed,
+			SprintSpeed = GameSettings.SurvivorSprintSpeed,
+		};
+	}
+
+	[Event.Tick.Client]
+	public void OnClientTick()
+	{
+		TickTerrorSound();
 	}
 
 	public override void Simulate( IClient cl )

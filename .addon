@@ -16,9 +16,10 @@
     "MaxPlayers": 8,
     "MinPlayers": 1,
     "GameNetworkType": "Multiplayer",
-    "MapSelect": "Unrestricted",
+    "MapSelect": "Official",
     "MapList": [
-      "facepunch.flatgrass"
+      "tgm.fw_lobby",
+      "tgm.fw_lobby#local"
     ],
     "RankType": "None",
     "PerMapRanking": false,

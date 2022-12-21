@@ -21,7 +21,14 @@ public partial class TerrancePlayer : SlasherPlayer
 		base.Respawn();
 
 		AnimationController = new HumanoidAnimator();
-		MoveController = new WalkController();
 		CameraController = new FirstPersonCamera();
+
+		var moveSpeed = GameSettings.SurvivorSprintSpeed * 1.15f;
+		MoveController = new WalkController
+		{
+			DefaultSpeed = moveSpeed,
+			WalkSpeed = moveSpeed,
+			SprintSpeed = moveSpeed,
+		};
 	}
 }
