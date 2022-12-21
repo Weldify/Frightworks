@@ -8,9 +8,8 @@ public static class GameSettings
 	public static string MatchMapIdents => IsDebug ? "tgm.fw_asylum#local" : userMatchMapIdents;
 
 	// Do we want to run debug mode in the editor?
-	static bool DebugInEditor => true;
-	static bool DebugInGame => false;
-	public static bool IsDebug => Game.IsToolsMode ? DebugInEditor : DebugInGame;
+	[ConVar.Replicated( "fw_debug" )]
+	public static bool IsDebug { get; set; }
 
 	// How long it takes for the game to start once everyone is ready
 	public static float LobbyCountdownTime => IsDebug ? 2f : 10f;

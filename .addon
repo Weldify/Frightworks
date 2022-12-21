@@ -18,8 +18,7 @@
     "GameNetworkType": "Multiplayer",
     "MapSelect": "Official",
     "MapList": [
-      "tgm.fw_lobby",
-      "tgm.fw_lobby#local"
+      "tgm.fw_lobby"
     ],
     "RankType": "None",
     "PerMapRanking": false,
@@ -84,6 +83,15 @@
         "DisplayName": "Maps",
         "DefaultValue": "tgm.fw_asylum",
         "Description": "The idents of maps you want to play on, separated by ;",
+        "Group": ""
+      },
+      {
+        "DisplayType": "Boolean",
+        "Choices": [],
+        "ConVarName": "fw_debug",
+        "DisplayName": "Debug",
+        "DefaultValue": "false",
+        "Description": "",
         "Group": ""
       }
     ]
